@@ -1,0 +1,6 @@
+* storm
+   - Documentation · nathanmarz/storm Wiki https://github.com/nathanmarz/storm/wiki/Documentation
+   - Storm, distributed and fault-tolerant realtime computation : http://storm-project.net/
+   - http://www.slideshare.net/nathanmarz/storm-distributed-and-faulttolerant-realtime-computation
+
+todo(dirlt):

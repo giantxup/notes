@@ -1,0 +1,84 @@
+* gdb
+** 常用命令
+*** 载入程序和core
+   - 载入程序 gdb --args ./myprogram arg1 arg2 ...
+   - 载入core gdb -c core.xxxx ./myprogram
+   - 载入core gdb ./myprogram core.xxxx
+   - attach进程 gdb -p
+
+*** 断点
+   - 断点到当前文件某个函数 break
+   - 断点到当前文件某行 break
+   - 断点到某个文件位置 break :/
+   - 断点到某个地址 break
+   - 条件判断 break if
+   - 查看所有断点 info breakpoints
+   - 删除所有断点 delete
+   - 删除某个断点 delete <break-no>
+   - 开启某个断点 enable <break-no>
+   - 禁用某个断点 disable <break-no>
+
+对于多线程情况下面，默认断点断到所有线程上。我们也可以break到某个线程上。
+   - break [thread ] if
+
+*** 流程控制
+   - 运行 run
+   - 继续执行 cont(continue)
+   - 单步执行 n(next)
+   - 单步进入 s(step)
+   - 执行完本函数 finish
+   - 查看当前运行状态 info prog
+
+*** 查看代码
+   - 定位源代码目录 dir <source-directory>
+   - 查看当前位置代码 list
+   - 查看当前文件函数 list <function-name>
+   - 查看当前文件某行 list
+   - 查看其他文件 list :
+
+*** 查看变量
+   - 查看表达式类型 whatis
+   - 查看变量类型 ptype
+   - 查看变量值 print /FMT
+   - 查看所有全局和静态变量 info variables
+   - 查看内存内容 x/(NUM)(FMT) addr
+   - dump内容 dump [OPTION] FILE start end
+
+*** 堆栈相关
+   - 查看当前栈局部变量 info local
+   - 查看当前栈调用参数 info args
+   - 查看栈调用情况 bt(backtrace)
+   - 查看栈调用详细情况 bt full
+   - 切换函数栈 frame <frame-id>
+
+*** 线程相关
+   - 查看当前所有线程信息 info threads
+   - 切换线程 thread <thread-id>
+   - 应用线程命令 thread apply [all|no1 no2 ...] command
+
+*** 汇编相关
+   - 查看当前寄存器 info registers
+   - 反汇编当前地址 disassemble
+   - 反汇编某个函数 disassemble
+   - 反汇编某个地址范围 disassemble
+   - 设置汇编格式 set disassembly-flavor [intel/att]
+
+** 插件编写
+插件代码放在在~/.gdbinit下面。下面是一段示例代码
+
+#+BEGIN_EXAMPLE
+#-*- gdb-script -*-
+#函数定义
+define function
+    #some comment
+    set $buf=malloc(8192)
+    set $ret=printf("hello,%s\n","world")
+    set $ret=free($buf)
+end
+#函数文档
+document function
+    #some comment
+    a gdb plugin example
+end
+#+END_EXAMPLE
+

@@ -1,0 +1,19 @@
+* happiness-is
+
+file:../images/happiness-is0.jpg
+
+file:../images/happiness-is1.jpg
+
+file:../images/happiness-is2.jpg
+
+file:../images/happiness-is3.jpg
+
+file:../images/happiness-is4.jpg
+
+file:../images/happiness-is5.jpg
+
+file:../images/happiness-is6.jpg
+
+file:../images/happiness-is7.jpg
+
+file:../images/happiness-is8.jpg

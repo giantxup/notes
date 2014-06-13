@@ -1,0 +1,120 @@
+* cross-ocean
+*I'm looking for a remote job, and this statement is long term till I remove it*
+   - http://careers.stackoverflow.com/jobs?allowsremote=true
+   - https://weworkremotely.com/
+
+** SALARY
+salary comparison of various countries
+   - Numbeo - The biggest Internet Database about Cost of Living, Housing Indicators and many other informations about cities and countries! : http://www.numbeo.com/common/
+   - PayScale - Salary Comparison, Salary Survey, Search Wages : http://www.payscale.com/
+   - Company Salaries | Glassdoor : http://www.glassdoor.com/Salaries/index.htm
+
+http://www.valleytalk.org/2014/01/26/google-detailed-salary-information/
+
+http://www.valleytalk.org/2014/02/01/microsoft-h1b-salary-detailed-information/
+
+** spoon
+http://careers.stackoverflow.com/jobs/42334/stream-software-from-the-web-senior-software-spoon-net
+   - apply@2013-10-29
+
+http://careers.stackoverflow.com/jobs/38434/software-engineer-web-and-server-infrastructure-spoon-net
+   - apply@2013-11-26
+
+** wikimedia
+http://careers.stackoverflow.com/jobs/40283/software-engineer-data-analytics-back-end-wikimedia-foundation
+   - apply@2013-10-30
+   - reject@2013-11-08
+
+** codeship
+http://careers.stackoverflow.com/jobs/43288/senior-software-developer-codership
+   - apply@2013-11-05
+   - reply@2013-11-23
+   - skype@2013-12-16
+   - *offer@2013-12-20*
+   - *negotiate@2013-12-24*
+
+** dropbox
+https://www.dropbox.com/position?jvi=oNbJVfwm,Job
+   - apply@2013-11-06 *(maybe not remote)*
+   - reject@2013-11-13
+
+** parse.ly
+https://weworkremotely.com/jobs/198
+   - apply@2013-11-08
+
+** duckduckgo
+https://weworkremotely.com/jobs/196
+   - giveup@2013-11-12 *(community based)*
+     - https://duckduckgo.com/
+     - https://dukgo.com/help/company/hiring
+
+** infinipool
+https://weworkremotely.com/jobs/73
+   - apply@2013-11-12
+   - reply@2013-11-13
+   - skype@2013-11-16
+
+** sidebar
+https://weworkremotely.com/jobs/207
+   - giveup@2013-11-12
+
+** dominoup
+https://weworkremotely.com/jobs/112
+   - apply@2013-11-11
+
+** aircloak
+https://weworkremotely.com/jobs/59
+   - apply@2013-11-08
+   - reject@2013-11-12
+
+** gitlab
+https://weworkremotely.com/jobs/167
+   - apply@2013-11-16
+   - reject@2013-11-26
+
+** dataware ventures
+http://careers.stackoverflow.com/jobs/39501/research-software-developer-dataware-ventures
+   - giveup@2013-11-21 *(At this time, we are only considering US-based remote workers.)*
+
+** bayometric
+http://careers.stackoverflow.com/jobs/43577/senior-java-developer-tech-lead-bayometric
+   - giveup@2013-11-21 *(maybe not qualified)*
+
+** elastic search
+http://elasticsearch.com/job/distributed-systems-software-engineer/
+
+** box
+https://www.box.com/about-us/careers/open-positions/?jvi=owjsVfwW,Job
+   - apply@2013-11-21 *(maybe not remote)*
+
+https://www.box.com/about-us/careers/open-positions/?jvi=oWdAXfwq,Job
+   - apply@2013-11-21 *(maybe not remote)*
+
+   - reply@2013-11-28
+   - skype@2013-12-05
+   - reject@2013-12-05
+
+** scribd
+http://careers.stackoverflow.com/jobs/43841/systems-engineer-scribd-scribd
+
+http://www.thesourcery.com/jobs/628
+   - apply@2013-11-26 *(maybe not match)*
+   - giveup@2013-11-26
+   - reject@2013-12-04
+
+http://www.thesourcery.com/jobs/611
+   - apply@2013-11-26 *(maybe not remote)*
+   - giveup@2013-11-26
+   - reject@2013-12-04
+
+** nerd-wallet
+http://www.thesourcery.com/jobs/650
+   - apply@2013-11-26 *(maybe not remote)*
+   - giveup@2013-11-26
+   - reply@2013-11-28
+   - skype@2013-12-03
+   - reject@2013-12-04
+
+** media-crossing
+http://careers.stackoverflow.com/jobs/44442/senior-software-engineer-mediacrossing
+   - giveup@2013-11-26 *(maybe not qualified)*

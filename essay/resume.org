@@ -1,0 +1,127 @@
+* resume
+** en
+*** Summary
+Extensive experience in:
+- large-scale distributed system design and implementation.
+- network programming framework design and implementation.
+- storage system design and implementation.
+- performance optimization and tuning for systems and applications.
+- system software development.
+- big data processing and analysis.
+
+Specialities:
+- proficient in C/C++, Python, Java, Scala.
+- solid knowledge of data structure and algorithm.
+- extremely familiar with system development toolchain on linux.
+- good understanding of compiler technique and related tools.
+
+*** Experience
+**** 2013.11-now
+Senior Software Architect at Umeng
+
+Data Platform Team.
+
+- infrastructure.
+
+**** 2013.2-2013.11
+Software Architect at Umeng.
+
+Data Platform Team.
+
+- data analytics and data mining on Hadoop.
+
+- KVProxy, an asynchronous high-performance HTTP server for easily accessing various database systems such as HBase, MySQL, Riak etc. It's written in Scala and Finagle, use Google Protocol-Buffers as data exchange format and Google Guava LRUCache as application-level cache. Since Finagle wraps asynchronous function in concept of 'Future' and encourages developer to take server as function(Your Server as a Function. http://monkey.org/~marius/funsrv.pdf) , so KVproxy could be used not only as server, but also as library that could be easily embedded into other applications.
+
+**** 2012.6-2013.2
+Senior Software Engineer at Umeng.
+
+Data Platform Team.
+
+- design Umeng internal Realtime+Batch Architecture. (aka. Lambda Architecture http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html)
+
+- optimize Hadoop cluster usage.
+
+- performance tuning of MapReduce jobs from perspectives of
+  1. application. use HBase bulk-loading instead of writing data to HBase directly for better throughput and stability.
+  2. algorithm. use HyperLogLog algorithm instead of using set to calculate cardinality for better performance and any-time-range query ability.
+  3. system. turn off MapReduce speculative mode when read data from HBase.
+  4. language. use JNI instead of pure Java code to accelerate cpu computation.
+  5. kernel. change kernel parameters like /proc/sys/vm/zone_reclaim_mode and /sys/kernel/mm/redhat_transparent_hugepage/enabled.
+
+- FastHBaseRest, an asynchronous high-performance HTTP server written in Netty for easily accessing HBase in multiple languages by using Google Protocol-Buffers. Since HBase only provides underlying block cache, FastHBaseRest implements item cache on application level using Google Guava for better read performance. Comparing to HBase embedded HTTP server('hbase rest'), the access latency is 20% lower and transfer size is 40% lower. Meanwhile it has more capabilities like request rewriting.
+
+- USched, a internal job scheduler system written from scratch to arrange jobs which are codependent. It defines and implements a DSL called JDL(Job Description Language) which is used to describe dependencies between jobs and properties of jobs. It runs as a HTTP server and provides a web-console to manage jobs including submissions and running status dashboard etc. Thousand MapReduce jobs are scheduled by usched each day while the latency is below 5sec.
+
+**** 2011.8-2012.6
+[[file:./images/baidu-inf-com-2010q4.jpg][Senior Software Engineer at Baidu.]]
+
+INF(infrastructure) HPC(high performance computing) Team.
+
+- DStream, an in-house distributed realtime stream processing system in C++ like Twitter's Storm and Yahoo!'s S4. The alpha version of DStream with 10 nodes can process 1 million tuples per second while keep the latency less than 100ms.
+
+**** 2010.6-2011.8
+Software Engineer at Baidu.
+
+INF(infrastructure) COM(component) Team.
+
+- Itachi, an open-source high performance asynchronous network programming framework in C++. https://github.com/dirtysalt/itachi.
+
+- Comake2, an in-house build system in Python, takes advantages of some open-source build systems such as SCons, CMake, Google's GYP, Boost's Jam etc. It have been wildly used in Baidu for continuous integration.
+
+- Infpack, an in-house data exchange format in C++, exceeds Google's Protocol-Buffers and Facebook's Thrift on the speed of serialization and deserialization about 20~30% faster while with 10~20% smaller size. Its generated code is carefully hand-tuned so implementation is very efficient.
+
+- DDBS(distributed database system), an in-house distributed relational database system. I mainly worked on SQL parser to extend syntax for more capability and implementing a SPASS(single point automatic switch system) for its fault-tolerant feature.
+
+- maintainer and developer of Baidu's common library including BSL(Baidu standard library), Ullib(wraps socket io, file io, and some linux syscalls etc.), ComDB(a embedded high-performance key value storage system), memory allocator, character encoding, regular expression, signature and hash algorithm, url handling, http client, lock-free data structures and algorithms etc.
+
+**** 2008.7-2010.6
+Software Engineering Intern at Baidu.
+
+IBase COM(component) Team.
+
+- Vitamin, an in-house tool to detect the potential bugs in C/C++ source code by static analyzation. It reports thousands of valuable warnings by scanning the whole Baidu's code repository while keeping the rate of fake warnings relatively low.
+
+- Idlcompiler, an in-house compiler translates a DSL(domain specified language) called 'idl'(interface description language, which is designed by myself) to the code that support data exchange between C/C++ struct/class and Mcpack(an in-house data pack like Google's Protocol-Buffers) with the help of Flex and Bison.
+
+- maintainer and developer of Baidu common libraries including Ullib(wraps socket io, file io, and some linux syscalls etc.), ComDB(a embedded high-performance key value storage system), memory allocator, character encoding, regular expression, signature and hash algorithm, url handling, http client etc.
+
+** cn
+*** 职业技能
+- 大规模分布式系统设计和实现
+- 大数据分析和处理
+- 熟悉C++,Python,Java,Scala等语言
+- 熟悉数据结构和算法
+- 熟悉Linux平台下的系统编程以及性能优化
+- 熟悉网络编程以及网络框架设计和实现
+- 熟悉编译原理并且开发过编译器
+
+*** 工作经历
+**** 2012.6-now
+高级软件架构师, 友盟, 2012.6 - now
+
+- realtime+batch架构(lambda架构). 利用批量计算结果来对实时计算结果进行补充。因为批量计算能够以全量数据作为输入能够获得更准确的结果并且容错性强但是延迟在小时级别，而实时计算虽然在延迟上在秒级别但是因为没有全量数据所以不能够进行更加深入分析。通过向realtime+batch架构演变，使得友盟统计能够在延迟和分析深入程度上都获得优势。
+
+- 优化Hadoop集群使用。通过分析在Hadoop集群上存放数据以及运行任务的特征进行相关优化
+  - 修改HDFS Block Placement Policy和Balancer代码将冷数据存放到存储廉价型机器上。
+  - 在elephant-bird上增加lzma算法，作用在冷数据上相比lzo算法空间节省60%以上。
+  - 使用HBase上 1)避免使用直接输出到hbase的方法而采用bulk-load方式提高吞吐 2)移除一些在hbase上的hash-join而替换成以hbase scan作为input的sort-merge join 3)在一些date prefix rowkey的table上，对rowkey头部增加hashcode来打散数据在region上分布
+  - 使用HyperLogLog算法来计算独立设备等需要去重指标，提高效率同时使得跨任意时间段查询成为可能。使用jni(java native interface)来重写CPU密集型的计算。
+
+- 支持多语言访问HBase的异步高性能服务fast-hbase-rest. 传输协议使用HTTP, 数据交换格式使用protobuf来达到多语言访问目的，底层使用asynchbase对hbase进行异步访问来提高吞吐。因为hbase内部只有在block-cache而没有item-cache, 通过在服务内部使用guava编写的应用层级别LRU cache可以有效减少访问延迟。服务模块化易于扩展，支持rewrite request功能可以屏蔽底层hbase schema的变化。相比hbase rest, 传输延迟减少20%, 传输数据减少40%.
+
+- 任务调度器usched. 通过调研一些业界已有的任务调度器比如oozie, azkaban等，然后结合友盟内部任务执行情况特点开发的任务调度器。系统定义了任务描述语言(JDL)允许指定任务之间的相互依赖关系，开始运行的时间以及一些触发条件，可以来对任务执行做精细化控制。usched通过HTTP请求提交任务和控制任务，有相对比较完善的web-console来管理，并且内置任务报警，命令运行输出重定向等功能。友盟每天运行的几百个Hadoop任务都是通过usched来进行调度的，调度延迟在5s以内。
+
+**** 2008.8-2012.6
+[[file:./images/baidu-inf-com-2010q4.jpg][高级软件工程师, 百度, 2008.8 - 2012.6]]
+
+- 分布式实时流式计算系统dstream, 针对需要实时处理流式数据的应用场景，解决hadoop批量处理模型不能够实时处理大数据的问题。经过调研和对比很多已有的分布式实时流式计算系统比streambase, storm等以及考虑百度自身应用需求，dstream可以在处理模型上保证数据不乱序不重复不丢失并且保持高吞吐和较低的延迟。众多产品线包括百度网页搜索检索实时反作弊，百度网页搜索点击实时反作弊，百度网盟等都正在基于dstream进行开发。现阶段发布的alpha版本单处理节点性能可以达到10K packets/s而处理延迟保证在100ms以内。
+
+- 异步网络编程框架itachi, 主要用来解决网络上系统需要处理client慢连接或者是系统连接后端，而同时需要达到高吞吐的问题。经过调研并且深入分析了很多开源的网络编程框架以及相关项目比如hpserver, muduo, boost.asio,libev, zeromq等，但是发现没有相对完整的高性能异步网络编程框架，所以动手实现。之后打算基于这个网络编程框架实现一些分布式组件或系统。itachi ping-pong可以达到千兆网卡极限而cpu idle保持在60%,慢连接能够轻松处理C100K.。
+
+- 数据传输/存储格式infpack, 基于对于一些业界已有的实现如Google的protobuf和Facebook的thrift的调研分析，通过在格式上将schema和实际数据分开，来降低数据包体积，提高打包和解包的性能。现在百度网页库的存储系统已经使用infpack来作为底层数据传输和存储的格式。infpack在数据包体积大小上比protobuf小5-10%，压缩和解压效率比protobuf提高20-30%。
+
+- 分布式数据库DDBS单点自动切换系统和ESQL解释器。DDBS是master-slave结构，通过将单机MySQL数据合理地sharding到不同的机器上来提高读写性能。单点自动切换系统能够在master出现故障之后协调slave选出新的master同时保持节点之间数据强一致。用户可以通过编写ESQL来告诉DDBS如何进行数据sharding. 现在百度凤巢已经基本上全面使用DDBS.
+
+- 持续集成开发构建系统comake2。通过调研和使用很多已有的开源构建系统比如Google的GYP, CMake, SCons等，然后结合百度内部开发情况开发的高度定制化的构建系统。现在百度内部已经有近百个项目都在使用comake2作为构建系统进行持续集成开发。comake2因为是动态语言Python编写并且机制透明，现已经有不同的项目组贡献了十几个插件。总体来说现该系统已经可以很好地支持Baidu内部持续集成开发需求。
+
+- 维护，升级和优化基础库。接手的基础库各式各样，而这些库被近千个模块所依赖和使用。不完全地包括socket io, 文件io, url处理，http处理，通用数据结构包括lock-free的B树，字符编码识别和转换，字典，正则表达式，多模匹配，签名，内存分配器，数据格式，IDL编译器，单机存储系统，网络传输系统等。

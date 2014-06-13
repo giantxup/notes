@@ -1,0 +1,97 @@
+* effective-scala
+#+TITLE: Effective Scala
+   - http://twitter.github.io/effectivescala/
+
+** Introduction
+   - Scala provides many tools that enable succinct expression. Less typing is less reading, and less reading is often faster reading, and thus brevity enhances clarity. However brevity is a blunt tool that can also deliver the opposite effect: After correctness, think always of the reader.
+   - Above all, program in Scala. You are not writing Java, nor Haskell, nor Python; a Scala program is unlike one written in any of these. In order to use the language effectively, you must phrase your problems in its terms. There’s no use coercing a Java program into Scala, for it will be inferior in most ways to its original.
+   - This is a living document that will change to reflect our current “best practices,” but its core ideas are unlikely to change: *Always favor readability; write generic code but not at the expensive of clarity; take advantage of simple language features that afford great power but avoid the esoteric ones (especially in the type system). Above all, be always aware of the trade offs you make A sophisticated language requires a complex implementation, and complexity begets complexity: of reasoning, of semantics, of interaction between features, and of the understanding of your collaborators. Thus complexity is the tax of sophistication — you must always ensure that its utility exceeds its cost.*
+
+** Formatting
+   - Use pattern matching directly in function definitions whenever applicable # list map {  case Some(x) => x  case None => default }
+
+** Types and Generics
+   - Immutable collections should be covariant. Methods that receive the contained type should “downgrade” the collection appropriately.
+#+BEGIN_SRC Scala
+trait Collection[+T] {
+  def add[U >: T](other: U): Collection[U]
+}
+#+END_SRC
+   - Mutable collections should be invariant. Covariance is typically invalid with mutable collections.
+   - If you do find yourself using implicits, always ask yourself if there is a way to achieve the same thing without their help. Do not use implicits to do automatic conversions between similar datatypes (for example, converting a list to a stream); these are better done explicitly because the types have different semantics, and the reader should beware of these implications.
+
+** Collections
+   - http://www.scala-lang.org/docu/files/collections-api/collections.html
+   - The collections library is large: in addition to an elaborate hierarchy — the root of which being Traversable[T] — there are immutable and mutable variants for most collections. Whatever the complexity, the following diagram contains the important distinctions for both immutable and mutable hierarchies. 
+     - Iterable[T] is any collection that may be iterated over, they provide an iterator method (and thus foreach). 
+     - Seq[T]s are collections that are ordered, 
+       - IndexedSeq
+	 - Vector
+       - LinearSeq
+	 - List
+     - Set[T]s are mathematical sets (unordered collections of unique items), 
+     - and Map[T]s are associative arrays, also unordered.
+
+file:./images/scala-collection-hierarchy-simple.png
+
+   - Prefer using immutable collections. They are applicable in most circumstances, and make programs easier to reason about since they are referentially transparent and are thus also threadsafe by default. Use the mutable namespace explicitly. 
+     - import scala.collection.mutable
+     - val set = mutable.Set()
+   - Use the default constructor for the collection type. The corollary to the above is: in your own methods and constructors, receive the most generic collection type appropriate. This typically boils down to one of the above: Iterable, Seq, Set, or Map.
+   - High level collections libraries (as with higher level constructs generally) make reasoning about performance more difficult: the further you stray from instructing the computer directly — in other words, imperative style — the harder it is to predict the exact performance implications of a piece of code. Reasoning about correctness however, is typically easier; readability is also enhanced. With Scala the picture is further complicated by the Java runtime; Scala hides boxing/unboxing operations from you, which can incur severe performance or space penalties.
+   - Use scala.collection.JavaConverters to interoperate with Java collections. These are a set of implicits that add conversion asJava and asScala conversion methods. The use of these ensures that such conversions are explicit, aiding the reader.
+
+** Concurrency
+   - Prefer transforming futures over creating your own. Future transformations ensure that failures are propagated, that cancellations are signalled, and free the programmer from thinking about the implications of the Java memory model.
+   - The subject of concurrent collections is fraught with opinions, subtleties, dogma and FUD. In most practical situations they are a nonissue: Always start with the simplest, most boring, and most standard collection that serves the purpose. Don’t reach for a concurrent collection before you know that a synchronized one won’t do: the JVM has sophisticated machinery to make synchronization cheap, so their efficacy may surprise you.
+   - If an immutable collection will do, use it — they are referentially transparent, so reasoning about them in a concurrent context is simple. Mutations in immutable collections are typically handled by updating a reference to the current value (in a var cell or an AtomicReference). Care must be taken to apply these correctly: atomics must be retried, and vars must be declared volatile in order for them to be published to other threads.
+
+** Control structures
+   - returns can have hidden costs: when used inside of a closure. *implemented in bytecode as an exception catching/throwing pair which, used in hot code, has performance implications.*
+   - require and assert both serve as executable documentation. Both are useful for situations in which the type system cannot express the required invariants. 
+     - assert is used for invariants that the code assumes
+     - Whereas require is used to express API contracts:
+
+** Functional programming
+   - Value oriented programming confers many advantages, especially when used in conjunction with functional programming constructs. This style emphasizes 
+      - the transformation of values over stateful mutation, 
+      - yielding code that is referentially transparent, 
+      - providing stronger invariants and thus also easier to reason about. 
+      - Case classes, pattern matching, destructuring bindings, type inference, and lightweight closure- and method-creation syntax are the tools of this trade.
+   - The Option type is a container that is either empty (None) or full (Some(value)). They provide a safe alternative to the use of null, and should be used in their stead whenever possible. *They are a collection (of at most one item) and they are embellished with collection operations — use them!*
+   - Don’t use pattern matching for conditional execution when defaults make more sense. *The collections libraries usually provide methods that return Options;*
+   - PartialFunction http://scala-lang.org/api/current/index.html#scala.PartialFunction # can be chained.
+   - Use lazy fields for this purpose, but avoid using laziness when laziness is required by semantics. In these cases it's better to be explicit since it makes the cost model explicit, and side effects can be controlled more precisely. *Lazy fields are thread safe.*
+   - flatMap — the combination of map with flatten — deserves special attention, for it has subtle power and great utility. *Like its brethren map, it is frequently available in nontraditional collections such as Future and Option.*
+
+** Object oriented programming
+   - Singleton class types # def foo(): Foo with Bar = new Foo with Bar with Baz {}
+   - Structural typing # obj.asInstanceOf[{def close()}].close()
+
+** Error handling
+   - Instead, encode such errors explicitly: *using Option or com.twitter.util.Try are good, idiomatic choices, as they harness the type system to ensure that the user is properly considering error handling.*
+   - Instead, use the com.twitter.util.NonFatal extractor to handle only nonfatal exceptions.
+
+** Garbage collection
+   - We spend a lot of time tuning garbage collection in production. The garbage collection concerns are largely similar to those of Java though idiomatic Scala code tends to generate more (short-lived) garbage than idiomatic Java code — a byproduct of the functional style. Hotspot’s generational garbage collection typically makes this a nonissue as short-lived garbage is effectively free in most circumstances.
+   - Before tackling GC performance issues, watch [[http://www.infoq.com/presentations/JVM-Performance-Tuning-twitter][this]] presentation by Attila that illustrates some of our experiences with GC tuning.
+   - In Scala proper, your only tool to mitigate GC problems is to generate less garbage; but do not act without data! Unless you are doing something obviously degenerate, use the various Java profiling tools — our own include [[https://github.com/mariusaeriksen/heapster][heapster]] and [[https://github.com/twitter/jvmgcprof][gcprof]].
+
+** Java compatibility
+** Twitter's standard libraries
+   - The most important standard libraries at Twitter are [[http://github.com/twitter/util][Util]] and [[https://github.com/twitter/finagle][Finagle]]. Util should be considered an extension to the Scala and Java standard libraries, providing missing functionality or more appropriate implementations. Finagle is our RPC system; the kernel distributed systems components.
+   - Futures
+     - Twitter’s futures are asynchronous, so blocking operations — basically any operation that can suspend the execution of its thread; network IO and disk IO are examples — must be handled by a system that itself provides futures for the results of said operations. Finagle provides such a system for network IO.
+     - Futures are plain and simple: they hold the promise for the result of a computation that is not yet complete. They are a simple container — a placeholder. A computation could fail of course, and this must also be encoded: *a Future can be in exactly one of 3 states: pending, failed or completed.*
+     - *Futures are a type of collection — they are a container of either 0 or 1 elements — and you’ll find they have standard collection methods (eg. map, filter, and foreach).* 
+     - Since a Future’s value is deferred, the result of applying any of these methods is necessarily also deferred
+     - Futures implement a weak form of cancellation. Invoking Future#cancel does not directly terminate the computation but instead propagates a level triggered signal that may be queried by whichever process ultimately satisfies the future. Cancellation flows in the opposite direction from values: a cancellation signal set by a consumer is propagated to its producer. The producer uses onCancellation on Promise to listen to this signal and act accordingly. This means that the cancellation semantics depend on the producer, and there is no default implementation. Cancellation is but a hint.
+     - Util’s Local provides a reference cell that is local to a particular future dispatch tree. Setting the value of a local makes this value available to any computation deferred by a Future in the same thread. *They are analogous to thread locals, except their scope is not a Java thread but a tree of “future threads”.* As with thread locals, Locals can be very convenient, but should almost always be avoided: make sure the problem cannot be sufficiently solved by passing data around explicitly, even if it is somewhat burdensome. *Locals are used effectively by core libraries for very common concerns — threading through RPC traces, propagating monitors, creating “stack traces” for future callbacks — where any other solution would unduly burden the user.* Locals are inappropriate in almost any other situation.
+   - Offer/Broker
+     - Concurrent systems are greatly complicated by the need to coordinate access to shared data and resources. Actors present one strategy of simplification: each actor is a sequential process that maintains its own state and resources, and data is shared by messaging with other actors. Sharing data requires communicating between actors.
+     - Offer/Broker builds on this in three important ways. First, communication channels (Brokers) are first class — that is, you send messages via Brokers, not to an actor directly. Secondly, Offer/Broker is a synchronous mechanism: to communicate is to synchronize. *This means we can use Brokers as a coordination mechanism: when process a has sent a message to process b; both a and b agree on the state of the system.* Lastly, communication can be performed selectively: a process can propose several different communications, and exactly one of them will obtain.
+     - Offer.choose/timeout
+     - It may be tempting to compare the use of Offer/Broker to SynchronousQueue, but they are different in subtle but important ways. *Offers can be composed in ways that such queues simply cannot.*
+  
+** Acknowledgements
+

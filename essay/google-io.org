@@ -1,0 +1,4 @@
+* google-io
+#+TITLE: Google I/O
+   - Google I/O 2009 - The Myth of the Genius Programmer - YouTube : http://www.youtube.com/watch?v=0SARbwvhupQ 
+   - Google I/O 2011: Programming Well with Others: Social Skills for Geeks - YouTube : http://www.youtube.com/watch?v=q-7l8cnpI4k

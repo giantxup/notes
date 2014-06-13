@@ -1,0 +1,711 @@
+#!/usr/bin/env bash
+#Copyright (C) dirlt
+
+#echo "configuring common part..."
+# basic path.
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/sbin:$PATH
+export MANPATH=/usr/local/share/man:/usr/share/man:$MANPATH
+
+# mac or ubuntu.
+is_mac() {
+    if [ $(uname -s) = "Darwin" ]; then echo "1"; else echo "0"; fi
+}
+
+# cdh related.
+configure_cdh() {
+    local CDH3=0
+    local CDH4_2_0=0
+    local CDH4_3_0=1
+
+    # mac
+    if [ $(is_mac) = 1 ]; then
+        HADOOP_CLASSPATH=.:$HADOOP_LZO/build/hadoop-lzo-0.4.17-SNAPSHOT.jar
+        JAVA_LIBRARY_PATH=$HADOOP_LZO/build/native/Mac_OS_X-x86_64-64/lib/
+    else
+        if [ $CDH3 = 1 ]; then
+	    export HADOOP_HOME=$HOME/utils/hadoop-0.20.2-cdh3u3/
+	    export HADOOP_CONF_DIR=$HADOOP_HOME/conf
+	    export HBASE_HOME=$HOME/utils/hbase-0.90.4-cdh3u3/
+	    export HBASE_CONF_DIR=$HBASE_HOME/conf
+	    export HIVE_HOME=$HOME/utils/hive-0.7.1-cdh3u3/
+        fi
+        if [ $CDH4_2_0 = 1 ]; then
+	    export HADOOP_HOME=$HOME/utils/hadoop-2.0.0-cdh4.2.0
+	    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop/
+	    export HBASE_HOME=$HOME/utils/hbase-0.94.2-cdh4.2.0/
+	    export HBASE_CONF_DIR=$HBASE_HOME/conf
+	    export HIVE_HOME=$HOME/utils/hive-0.10.0-cdh4.2.0/
+        fi
+        if [ $CDH4_3_0 = 1 ]; then
+	    export HADOOP_HOME=$HOME/utils/hadoop-2.0.0-cdh4.3.0
+	    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop/
+	    export HBASE_HOME=$HOME/utils/hbase-0.94.6-cdh4.3.0/
+	    export HBASE_CONF_DIR=$HBASE_HOME/conf
+	    export HIVE_HOME=$HOME/utils/hive-0.10.0-cdh4.3.0/
+        fi
+        HADOOP_CLASSPATH=.:$HADOOP_HOME/lib/hadoop-lzo-0.4.15.jar
+        JAVA_LIBRARY_PATH=$HADOOP_HOME/lib/native/Linux-amd64-64:$HADOOP_HOME/lib/native
+        PATH=$HADOOP_HOME/bin:$PATH
+        PATH=$HADOOP_HOME/sbin:$PATH
+        PATH=$HBASE_HOME/bin:$PATH
+        PATH=$HIVE_HOME/bin:$PATH
+    fi
+    export HADOOP_CLASSPATH
+    export JAVA_LIBRARY_PATH
+    export PATH
+}
+configure_cdh
+
+# java related.
+configure_java() {
+    if [ $(is_mac) = 1 ]; then
+        JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/
+    else
+        JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64/
+    fi
+    CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$HADOOP_CLASSPATH:$CLASSPATH
+    CLASSPATH=.:./target/classes:./target/dependency:$CLASSPATH
+    LD_LIBRARY_PATH=$JAVA_LIBRARY_PATH:$LD_LIBRARY_PATH
+    PATH=$JAVA_HOME/bin:$PATH
+
+    export JAVA_HOME
+    export CLASSPATH
+    export LD_LIBRARY_PATH
+    export PATH
+}
+configure_java
+
+# utilities related.
+configure_utils() {
+    # texmacs.
+    PATH=$HOME/utils/TeXmacs-1.0.7-static-gnu-linux/bin:$PATH
+
+    # maven.
+    PATH=$HOME/utils/apache-maven-3.0.4/bin:$PATH
+    PATH=$HOME/utils/apache-maven-3.2.1/bin:$PATH
+
+    # protocol buffers.
+    PATH=$HOME/utils/protobuf-2.3.0/build/bin:$PATH
+    PATH=$HOME/utils/protobuf-2.5.0/build/bin:$PATH
+    PATH=$HOME/utils/protobuf-2.4.1/build/bin:$PATH
+
+    # golang
+    export GOROOT=$HOME/utils/go
+    export GOPATH=$HOME/go/
+    PATH=$GOROOT/bin:$PATH
+
+    # scala.
+    export SCALA_HOME=$HOME/utils/scala-2.10.2
+    PATH=$SCALA_HOME/bin:$PATH
+
+    # sbt
+    export SBT_HOME=$HOME/utils/sbt
+    PATH=$SBT_HOME/bin:$PATH
+    export SBT_OPTS="-Dsbt.global.base=$HOME/.sbt -Dsbt.ivy.home=$HOME/.ivy2"
+
+    # ccache
+    PATH=/usr/lib/ccache:$PATH
+
+    # utils/bin
+    PATH=$HOME/utils/bin:$PATH
+
+    export PATH
+    export MANPATH
+}
+configure_utils
+
+# git related.
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
+git config --global color.ui true
+git config --global core.autocrlf false
+git config --global user.name "dirtysalt"
+git config --global user.email "dirtysalt1987@gmail.com"
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.unstage 'reset'
+git config --global alias.last 'log -1 HEAD'
+
+# private key.
+ssh-add ~/.ssh/id_rsa 2>/dev/null
+ssh-add ~/.ssh/github 2>/dev/null
+lp_login() {
+    bzr launchpad-login yan.zhang
+}
+
+# language.
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+# export LANG="zh_CN.UTF-8"
+# export LC_ALL="zh_CN.UTF-8"
+
+export IDEA_HOME=$HOME/utils/idea-IC-123.72
+# intellij IDEA !!!
+start_idea() {
+    (sh $IDEA_HOME/bin/idea.sh >/tmp/idea.out 2>&1 &)
+}
+
+#echo "configuring galera part..."
+# galera
+# export MYSQL_SRC=$HOME/repo/wsrep-5.6
+export MYSQL_SRC=$HOME/repo/wsrep-5.5
+export MYSQL_DIR=$MYSQL_SRC/build_release
+export GALERA_SRC=$HOME/repo/galera
+
+# single mode.
+start_node() {
+    local idx=$1; shift
+    local extra_options=$@
+    local mysql_port=$((3305-idx))
+    local option=''
+    if [ $idx -eq 0 ]; then
+        option="--mysql-opt --wsrep-new-cluster"
+    fi
+    local cmd="MYSQL_PORT=$mysql_port /tmp/galera$idx/mysql-galera $option $extra_options start"
+    echo $cmd
+    eval $cmd
+}
+stop_node() {
+    local idx=$1
+    /tmp/galera$idx/mysql-galera stop
+}
+conn_node() {
+    local idx=$1; shift
+    mysql --sock=/tmp/galera$idx/mysql/var/mysqld.sock -u root -prootpass
+}
+clear_state() {
+    local idx=$1; shift
+    rm -rf /tmp/galera$idx/mysql/var/grastate.dat
+}
+log_node() {
+    local idx=$1
+    less /tmp/galera$idx/mysql/var/mysqld.err
+}
+
+# batch mode.
+start_nodes() {
+    cd $GALERA_SRC
+    ./tests/scripts/command.sh start
+    cd -
+}
+stop_nodes() {
+    cd $GALERA_SRC
+    ./tests/scripts/command.sh stop
+    cd -
+}
+remove_nodes() {
+    cd $GALERA_SRC
+    ./tests/scripts/command.sh remove
+    cd -
+}
+change_master_to_node0() {
+    local idx=$1
+    local cmd="STOP SLAVE; \
+CHANGE MASTER TO MASTER_HOST='127.0.0.1', MASTER_PORT=3305, MASTER_USER='root', MASTER_PASSWORD='rootpass', MASTER_AUTO_POSITION = 1; \
+START SLAVE"
+    echo $cmd | conn_node $idx
+}
+drop_connection() {
+    sudo iptables -A INPUT -s "192.168.100.104" -d "192.168.100.105" -j DROP
+    sudo iptables -A INPUT -s "192.168.100.103" -d "192.168.100.104" -j DROP
+    sudo iptables -A INPUT -s "192.168.100.103" -d "192.168.100.105" -j DROP
+}
+restore_connection() {
+    sudo iptables -D INPUT -s "192.168.100.104" -d "192.168.100.105" -j DROP
+    sudo iptables -D INPUT -s "192.168.100.103" -d "192.168.100.104" -j DROP
+    sudo iptables -D INPUT -s "192.168.100.103" -d "192.168.100.105" -j DROP
+}
+mysql_stopd() {
+    sudo /etc/init.d/mysql stop
+}
+
+# --mips ; use multiple ips
+# --mseg ; use multiple segment
+# --nums ; how many nodes
+test_cpconf() {
+    local MIPS=0
+    local MSEG=0
+    local NUMS=3
+    while test $# -gt 0
+    do
+        case $1 in
+            --mips)
+                MIPS=1
+                ;;
+            --mseg)
+                MSEG=1
+                ;;
+            --nums)
+                shift 1
+                NUMS=$1
+        esac
+        shift 1
+    done
+    cd ~/.private/galera
+    cp cluster.conf $GALERA_SRC/tests/conf/
+    local cluster_address=""
+    for ((i=0;i<$NUMS;i++))
+    do
+        local idx=$i
+        local sid=$((idx+1))
+        local segment=0
+        if [ $MSEG = 1 ]; then
+            segment=$((idx%3+1))
+        fi
+        local ip="127.0.0.1"
+        local port=$((4566-3*idx))
+        if [ $MIPS = 1 ]; then
+            ip="192.168.100."$((103+i))
+            port=4566
+        fi
+        local sst_port=$((port-1))
+        local ist_port=$((port+1))
+        if [ $i = 0 ]; then
+            cluster_address="$ip:$port"
+        else
+            cluster_address="$cluster_address,$ip:$port"
+        fi
+        sed -e "s/{idx}/$idx/g" \
+            -e "s/{port}/$port/g" \
+            -e "s/{segment}/$segment/g" \
+            -e "s/{sid}/$sid/g" \
+            -e "s/{ip}/$ip/g" \
+            -e "s/{sst_port}/$sst_port/g" \
+            my.cnf > $GALERA_SRC/tests/conf/my$i.cnf
+    done
+    sed -e "s/{wsrep_cluster_address}/$cluster_address/g" \
+        common_my.cnf > $GALERA_SRC/tests/conf/common_my.cnf
+    sed -e "s/{NODE_NUM}/$NUMS/g" \
+        nodes.conf > $GALERA_SRC/tests/conf/nodes.conf
+    cd -
+}
+
+build5.5d() {
+    cd $GALERA_SRC
+    MYSQL_SRC=$HOME/repo/wsrep-5.5 ./scripts/mysql/build.sh -i -b -d --no-strip
+    cd -
+}
+build5.6d() {
+    cd $GALERA_SRC
+    MYSQL_SRC=$HOME/repo/wsrep-5.6 ./scripts/mysql/build.sh -i -b -d --no-strip
+    cd -
+}
+build5.5r() {
+    cd $GALERA_SRC
+    MYSQL_SRC=$HOME/repo/wsrep-5.5 ./scripts/mysql/build.sh -i -b --no-strip
+    cd -
+}
+build5.6r() {
+    cd $GALERA_SRC
+    MYSQL_SRC=$HOME/repo/wsrep-5.6 ./scripts/mysql/build.sh -i -b --no-strip
+    cd -
+}
+wsrep_url5.5() {
+    echo "http://bazaar.launchpad.net/~codership/codership-mysql/wsrep-5.5/revision/$1"
+}
+wsrep_url5.6() {
+    echo "http://bazaar.launchpad.net/~codership/codership-mysql/5.6/revision/$1"
+}
+test_seesaw() {
+    local round=${1:-4}
+    $GALERA_SRC/tests/test_seesaw/run.sh $round
+}
+test_seesaw_sst() {
+    KILL_RATE=1 SST_RATE=1 test_seesaw $@
+}
+test_stopcont() {
+    local round=${1:-4}
+    $GALERA_SRC/tests/test_stopcont/run.sh $round
+}
+test_pc_recovery() {
+    local round=${1:-4}
+    $GALERA_SRC/tests/test_pc_recovery/run.sh $round
+}
+git_commit() {
+    local issue_id=$1
+    local message=$2
+    git commit -m "Refs #$issue_id: $message"
+}
+svn_commit() {
+    local ticket_id=$1
+    local message=$2
+    svn commit -m "Refs #$ticket_id: $message"
+}
+bzr_commit() {
+    local bug_id=$1
+    local message=$2
+    bzr commit --fixes lp:$bug_id -m "References lp:$bug_id $message"
+}
+galera_debug_build() {
+    cd $GALERA_SRC
+    scons debug=0 -j8
+    cd -
+}
+
+#echo "configuring utility part..."
+# others
+export EDITOR=vim
+
+alias dstat='dstat -cdlmnpsy'
+
+pgrep() {
+  ps aux | grep $1
+}
+
+golang_doc_server() {
+    godoc -http=:6060
+}
+
+apt_update() {
+    # google chrome
+    # wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    # sudo apt-add-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
+
+    # virtualbox
+    wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian raring contrib"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian quantal contrib"
+    sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian precise contrib"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian oneiric contrib"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian natty contrib"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian maverick contrib non-free"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian lucid contrib non-free"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian karmic contrib non-free"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian hardy contrib non-free"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian wheezy contrib"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian squeeze contrib non-free"
+    # sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian lenny contrib non-free"
+
+    sudo apt-add-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+
+    # ubuntu tweak
+    # sudo add-apt-repository ppa:tualatrix/ppa
+
+    # emacs24
+    sudo add-apt-repository ppa:cassou/emacs
+
+    # ansible
+    # sudo add-apt-repository ppa:rquillo/ansible
+
+    # svn
+    # sudo add-apt-repository ppa:dominik-stadler/subversion-1.8
+
+    sudo apt-get update
+}
+
+home_http_server() {
+    cd ~
+    python -m SimpleHTTPServer 8080
+    cd -
+}
+
+home_http_server_once() {
+    local port_info
+    port_info=$(lsof -i:8080 -Pn | grep "(LISTEN)")
+    if [ -z "$port_info" ]; then
+        echo "start home_http_server..."
+        cd ~
+        (python -m SimpleHTTPServer 8080 >/tmp/home_http_server.out 2>&1 &)
+        cd -
+    fi
+}
+home_http_server_once
+
+cxx_indent() {
+    dos2unix $@
+    # http://astyle.sourceforge.net/astyle.html
+
+    # 一些不要使用的选项(看上去我们会很想使用)
+    # --indent-cases // case后面内容多一次缩进,但是会让case部分{}存在问题.
+    # --indent-namespaces // 会让namespace下面内容多一个层缩进.
+    # --indent-classes // 虽然能够让public:,private:产生所缩进,但是造成函数出现两次缩进.
+    # --break-blocks // 在{}之后断开一行.看上去很好,但是不太合适.
+    # --delete-empty-lines // 删除函数内不必要空行.看上去很好,但是不太合适.
+
+    # 一些可以使用的选项
+    # --suffix=none // 不进行任何备份.
+    # --style=java // 基本风格使用java style.
+    # --brackets=attach // 括号附着在函数和条件表达式之后.
+    # --indent-switches // switch里面case进行缩进.
+    # --indent-labels // label进行缩进.
+    # --indent-preprocessor // 预处理换行使用缩进.
+    # --indent-col1-comments // 注释进行缩进.
+    # --add-brackets // 条件表达语句都加上{}
+    # --convert-tabs // 转换tab成为空格
+    # --lineend=linux // 换行转换成为\n
+    # --align-pointer=type // *和&都偏向类型.
+    # --pad-oper // 在运算符附近加上空格
+
+    astyle --suffix=none --style=java --indent=spaces=4 --brackets=attach \
+        --indent-switches --indent-labels --indent-preprocessor --indent-col1-comments \
+        --convert-tabs --verbose --lineend=linux --align-pointer=type --pad-oper $@
+}
+
+vpn_umeng_dp() {
+    cd ~/.private/vpn-umeng-dp
+    sudo openvpn --config client.conf
+    cd -
+}
+
+install_files() {
+    mkdir -p ~/utils/bin
+    for target in uhosts
+    do
+        echo "installing $target..."
+        rm -rf ~/utils/bin/$target
+        ln -s ~/repo/notes/files/$target ~/utils/bin/$target
+    done
+
+    for target in .emacs .shrc .zshrc .bashrc .screenrc .tmux.conf
+    do
+        echo "installing $target..."
+        rm -rf ~/$target
+        ln -s ~/repo/notes/files/$target ~/$target
+    done
+
+    ##########
+    echo "installing index.html..."
+    rm -rf ~/index.html
+    ln -s ~/.private/files/index.html ~/index.html
+
+    echo "installing id_rsa.pub..."
+    rm -rf ~/.ssh/id_rsa.pub
+    ln -s ~/.private/keys/id_rsa.pub ~/.ssh/id_rsa.pub
+    chmod 0600 ~/.ssh/id_rsa.pub
+
+    echo "installing id_rsa..."
+    rm -rf ~/.ssh/id_rsa
+    ln -s ~/.private/keys/id_rsa ~/.ssh/id_rsa
+    chmod 0600 ~/.ssh/id_rsa
+
+    echo "installing github.pub..."
+    rm -rf ~/.ssh/github.pub
+    ln -s ~/.private/keys/github.pub ~/.ssh/github.pub
+    chmod 0600 ~/.ssh/github.pub
+
+    echo "installing github..."
+    rm -rf ~/.ssh/github
+    ln -s ~/.private/keys/github ~/.ssh/github
+    chmod 0600 ~/.ssh/github
+
+    echo "installing ssh-config..."
+    rm -rf ~/.ssh/config
+    ln -s ~/.private/files/ssh-config ~/.ssh/config
+
+    echo "installing ivy2-credentials..."
+    mkdir -p ~/.ivy2
+    rm -rf ~/.ivy2/.credentials
+    ln -s ~/.private/files/ivy2-credentials ~/.ivy2/.credentials
+
+    echo "installing mvn-settings.xml..."
+    mkdir -p ~/.m2
+    rm -rf ~/.m2/settings.xml
+    ln -s ~/.private/files/mvn-settings.xml ~/.m2/settings.xml
+
+    echo "installing build.sbt..."
+    mkdir -p ~/.sbt/plugins
+    rm -rf ~/.sbt/plugins/build.sbt
+    rm -rf ~/.sbt/build.sbt
+    ln -s ~/.private/files/plugins.sbt ~/.sbt/plugins/build.sbt
+    ln -s ~/.private/files/build.sbt ~/.sbt/build.sbt
+
+    echo "installing .oh-my-zsh"
+    rm -rf ~/.oh-my-zsh
+    ln -s ~/.private/oh-my-zsh ~/.oh-my-zsh
+
+    echo "installing .emacs.d"
+    rm -rf ~/.emacs.d
+    ln -s ~/.private/emacs.d ~/.emacs.d
+}
+
+install_hosts() {
+    echo "installing hosts..."
+    sudo cp ~/.private/files/hosts /etc/hosts
+}
+
+update_hosts() {
+    local url=${SMART_HOSTS_URL:-"http://smarthosts.googlecode.com/svn/trunk/hosts"}
+    local hosts="$HOME/.private/files/hosts"
+    cat $hosts | awk 'BEGIN {f=0;} /^#SmartHosts/ {f=1;} {if(f==0) print $0;}' > /tmp/hosts
+    curl -S $url 2>/dev/null >> /tmp/hosts
+    cp $hosts $hosts.bak
+    cp /tmp/hosts $hosts
+}
+
+shadowsocks() {
+    cd ~/.private/shadowsocks
+    ./local.py
+    cd -
+}
+
+shadowsocks_once() {
+    local port_info
+    port_info=$(lsof -i:62221 -Pn | grep "(LISTEN)")
+    if [ -z "$port_info" ]; then
+        echo "start shadowsocks..."
+        cd ~/.private/shadowsocks
+        (./local.py >/tmp/shadowsocks.out 2>&1 &)
+        cd -
+    fi
+}
+shadowsocks_once
+
+# deprecated now !!!
+easy_oprofile() {
+    if [ $# -lt 5 ]; then
+        echo "easy_oprofile image-file(ELF) command"
+        exit 1
+    fi
+    local ifile=$1; shift
+    local rfile="oprof.rpt"
+    local srcdir="."
+    local afile="oprof.asm"
+    local command=$@
+    echo "Image file: $ifile"
+    echo "Report file: $rfile"
+    echo "Source directory: $srcdir"
+    echo "Assembly file: $afile"
+    echo "Command: $command"
+
+    sudo opcontrol --reset
+    sudo opcontrol --no-vmlinux --separate=lib --start --image=$ifile
+    $command
+    sudo opcontrol --dump
+    sudo opcontrol --shutdown
+    sudo opreport -l image:$ifile -o $rfile
+    sudo opannotate -s --output-dir=$srcdir $ifile
+    sudo opannotate -a $ifile > $afile
+}
+
+package_install() {
+    if [ $# -lt 2 ]; then
+        echo "package_install package(tar.gz or tar.bz2) configure-parameters"
+        exit 1
+    fi
+    local NAME=$1; shift
+    local PARAMS=$@
+    case $NAME in
+        *.tar.gz)
+            local SRC=`basename $NAME .tar.gz`
+            rm -rf $SRC
+            tar xzf $NAME
+            ;;
+        *.tar.bz2)
+            local SRC=`basename $NAME .tar.bz2`
+            rm -rf $SRC
+            tar xjf $NAME
+            ;;
+    esac
+    cd $SRC
+    local CONFIG="./configure $PARAMS --enable-shared=no --enable-static=yes"
+    CFLAGS="-fPIC" CXXFLAGS="-fPIC" $CONFIG
+    make -j 8;make install
+    cd -
+}
+
+set_core_dump_param() {
+    ulimit -c unlimited
+    sudo sysctl -q -w kernel.core_pattern="/tmp/core.%e.%t.%p"
+}
+
+set_local_port_range() {
+    sudo sysctl -q -w net.ipv4.ip_local_port_range="32768	61000"
+}
+
+install_ubuntu_packages() {
+    cat ~/repo/notes/essay/ubuntu.org | grep "^   - sudo apt-get" | \
+        awk '{print $5;}' | xargs sudo apt-get install -y
+}
+
+_time_machine_sync_dir() {
+    local src=$1
+    local dst=$2
+    local d=$3
+    mkdir -p "$dst/$d/" 2>/dev/null
+    echo "sync $d..."
+    rsync -arz --no-times "$src/$d/" "$dst/$d/"
+}
+
+_time_machine_sync_utils() {
+    local src=$1
+    local dst=$2
+    mkdir -p "$dst/utils" 2>/dev/null
+    for p in `find $src/utils/ -maxdepth 1 -type f`
+    do
+	echo "sync $p..."
+	p=`basename $p`
+	rsync -az --no-times $src/utils/$p $dst/utils/$p
+    done
+}
+
+time_machine() {
+    rm -f /tmp/ubuntu-backup
+    ln -s "/media/Expansion Drive/Ubuntu Backup/" /tmp/ubuntu-backup
+
+    PWD=$(pwd)
+    if [ ! -d "$PWD/dirlt" ]; then
+        echo "are you at right directory???"
+        return
+    fi
+
+    # determine source and destination.
+    local base=`basename "$PWD"`
+    local home=/home/dirlt/
+    local backup=/tmp/ubuntu-backup/dirlt
+
+    if [ "X$base" = "Xhome" ]; then
+        local src=$backup
+        local dst=$home
+    else
+        local src=$home
+        local dst=$backup
+    fi
+
+    echo "$src ---> $dst"
+
+    local UTILS="yes"
+    local SHARE="yes"
+    local M2="yes"
+    while test $# -gt 0
+    do
+        case $1 in
+	    --no-utils)
+	        UTILS="no"
+	        ;;
+	    --no-share)
+	        SHARE="no"
+	        ;;
+	    --no-m2)
+	        M2="no"
+	        ;;
+        esac
+        shift 1
+    done
+    if [ $UTILS = "yes" ] ; then _time_machine_sync_utils $src $dst; fi
+    if [ $SHARE = "yes" ] ; then _time_machine_sync_dir $src $dst "share" ; fi
+    if [ $M2 = "yes" ] ; then _time_machine_sync_dir $src $dst ".m2" ; fi
+}
+
+print_proc_netstat() {
+    cat /proc/net/netstat | awk 'BEGIN { ln=0; tcp=0; ip=0; }
+{
+  ln++; if(ln==1) tcp=NF; else if(ln==3) ip=NF;
+  for(i=1;i<=NF;i++) d[ln,i]=$i;
+}
+END {
+  for(i=2;i<=tcp;i++) printf("%25s => %10d\n", d[1,i], d[2,i]);
+  for(i=2;i<=ip;i++) printf("%25s => %10d\n", d[3,i], d[4,i]);
+}'
+}
+
+random_picture() {
+    local image_path=${1:-"$HOME/ws/rr/images/"}
+    local num=$(ls $image_path 2>/dev/null| wc -l)
+    if [ $num = 0 ]; then return ; fi
+    local rand=$(date +%N)
+    local n=$((rand%num))
+    local awk_cmd="BEGIN {ln=0;} { ln++; if (ln==$n) print \$0;}"
+    local fname=$(ls $image_path | awk $awk_cmd)
+    (eog "$image_path/$fname" &)
+}

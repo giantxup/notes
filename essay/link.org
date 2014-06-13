@@ -1,0 +1,30 @@
+* link
+** Home
+   - Leslie Lamport. http://research.microsoft.com/en-us/um/people/lamport/pubs/pubs.html
+   - James Hamilton. http://mvdirona.com/jrh/work/
+   - Jeff Dean. http://research.google.com/people/jeff/
+   - Rob Pike. http://www.herpolhode.com/rob/
+   - Eric S. Raymond. http://www.catb.org/esr/
+   - Matt Welsh. http://www.mdw.la/
+   - Joe Armstrong. http://joearms.github.io/
+   - Don Knuth. http://www-cs-faculty.stanford.edu/~uno/
+   - Matei Zaharia. http://www.cs.berkeley.edu/~matei/
+   - R. Kent Dybvig. http://www.cs.indiana.edu/~dyb/
+
+** Blog
+   - Werner Vogels. All Things Distributed - All Things Distributed : http://www.allthingsdistributed.com/
+   - www.preshing.com : http://www.preshing.com/
+   - Mechanical Sympathy : http://mechanical-sympathy.blogspot.co.at/
+   - Paper Trail : http://the-paper-trail.org/blog/
+   - Building Scalable Systems | Swami's Blog on Building Systems That Scale : http://scalingsystems.com/
+   - Systems We Make | Curating Complex Distributed Systems : http://www.systemswemake.com/
+   - 37Signals. Signal vs. Noise by Basecamp — Business, Design, Programming and the Web : http://signalvnoise.com/
+   - Nathan Marz. thoughts from the red planet - thoughts from the red planet : http://nathanmarz.com/
+   - Percona. MySQL Performance Optimization & Support, InnoDB, XtraDB and XtraBackup : http://www.mysqlperformanceblog.com/
+   - DBMS 2 : Database management and analytic technologies in a changing world : http://www.dbms2.com/
+   - Small Datum : http://smalldatum.blogspot.com/
+
+** Article
+   - The Best of 2012 | Dr Dobb's : http://www.drdobbs.com/architecture-and-design/the-best-of-2012/240145121
+   - The Best of 2013 | Dr Dobb's : http://www.drdobbs.com/architecture-and-design/the-best-of-2013/240164956
+   - High Scalability - All Time Favorites : http://highscalability.com/all-time-favorites/

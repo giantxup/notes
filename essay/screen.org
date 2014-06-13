@@ -1,0 +1,10 @@
+* screen
+   - http://www.gnu.org/software/screen/
+
+使用screen启动后台任务
+   - screen -D -R <session-name>
+     - 如果会话存在那么会连上.
+     - 如果会话不存在那么创建.
+     - 如果会话被其他人attach, 可以强制attach.
+   - 在会话里面执行命令
+   - C-a d从这个会话里面detach出来

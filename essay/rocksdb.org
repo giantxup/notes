@@ -1,0 +1,3 @@
+* rocksdb
+   - http://rocksdb.org/index.html
+   - https://github.com/facebook/rocksdb

@@ -1,0 +1,63 @@
+* unix-systems-for-modern-architectures
+#+TITLE: UNIX Systems for Modern Architectures: Symmetric Multiprocessing and Caching for Kernel Programmers
+
+   - http://www.amazon.com/UNIX-Systems-Modern-Architectures-Multiprocessing/dp/0201633388
+   - http://book.douban.com/subject/1229889/
+   - 
+
+** 多处理机系统概述
+cpu总线式结构允许高速缓存进行监听(snooping)
+
+file:./images/cpu-bus-snooping.png
+
+也允许在smp环境下单个cpu对存储器和读写操作满足原子性
+
+file:./images/smp-bus-race.png
+
+** 采用信号量的内核
+使用自选锁来实现信号量
+#+BEGIN_SRC C++
+typedef struct sema
+{
+  lock_t lock;
+  int count;
+  queue q;
+} sema_t;
+
+void init_sema(sema_t* sema, int init_cnt)
+{
+  init_lock(&sema->lock);
+  init_queue(&sema->q);
+  sema->count=init_cnt;
+}
+
+void p(sema_t* sema)
+{
+  lock(&sema->lock);
+  sema->count--;
+  if (sema->count < 0) {
+    q.push(current_process_context());
+    unlock(&sema->lock);
+    swtch(); // switch to another process.
+    return;
+  }
+  unlock(&sema->lock);
+}
+
+void v(sema_t* sema)
+{
+  lock(&sema->lock);
+  sema->count++;
+  if (sema->count <= 0) {
+    pcs_ctx* ctx = q.pop();
+    unlock(&sema->lock);
+    enqueue(&running_queue, ctx);
+    return ;
+  }
+  unlock(&sema->lock);
+}
+#+END_SRC
+
+** 其他存储模型
+todo(dirlt)
+

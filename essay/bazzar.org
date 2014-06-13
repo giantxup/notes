@@ -1,0 +1,24 @@
+* bazzar
+#+OPTIONS: H:5
+   - http://bazaar.canonical.com/en/
+   - https://launchpad.net/
+
+-----
+
+   - bzr branch <repo> # git clone
+   - bzr pull
+   - bzr push <repo>
+     - create-prefix # create if not exist
+
+-----
+
+   - bzr commit -m ''
+   - bzr uncommit
+   - bzr add/remove
+   - bzr revert # git checkout
+
+-----
+
+   - bzr log/diff -r[a]..[b]
+   - bzr status
+   - bzr revno # current revision number
