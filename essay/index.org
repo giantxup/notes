@@ -16,8 +16,7 @@
      - [[file:pic.org][PIC]] 分析了一下PIC位置无关代码内部的原理以及和动态库之间的关系。通过阅读<深入理解计算机系统>并且结合实际的例子总结出来的。
      - [[file:gcc-asm.org][GCC Assembly]] 如何编写GCC内嵌汇编，以及一些关于GCC内嵌汇编的文章，主要是参考了<GCC Manual>. 但是自己对这个依然不是很了解。
      - [[file:encoding.org][Encoding]] 介绍了GB2312/GBK/GB18030/Unicode/UTF16/UTF32/UTF8这几种字符编码格式。还是觉得UTF8在设计以及实现上都相对更加合理。
-   - [[file:cpu.org][CPU]] CPU相关
-   - [[file:simd.org][SIMD]] SIMD(Single Instruction Muitple Data)单指令多数据。这个笔记其实是Intel Reference Manual中关于SIMD指令的总结。里面包含了一些理解SIMD指令需要的知识，以及对SIMD指令进行了分类。遗憾的是里面没有什么过多的例子，毕竟这个是结合场景来使用的。
+   - [[file:cpu.org][CPU]] / [[file:simd.org][SIMD]] SIMD(Single Instruction Muitple Data)单指令多数据。这个笔记其实是Intel Reference Manual中关于SIMD指令的总结。里面包含了一些理解SIMD指令需要的知识，以及对SIMD指令进行了分类。遗憾的是里面没有什么过多的例子，毕竟这个是结合场景来使用的。
    - [[file:unix-systems-for-modern-architectures.org][现代体系结构上的UNIX系统-内核程序员的SMP和Caching技术]]
    - [[file:concurrency.org][Concurrency]] 并发
      - [[file:coroutine.org][Coroutine]] 协程，轻量级线程。
@@ -25,8 +24,9 @@
      - [[file:akka.org][Akka]] Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM.
    - [[file:memory.org][Memory]] 内存相关
      - [[file:./numa.org][NUMA]] Non-Uniform Memory Access. 非一致性内存访问
-       - [[file:numa-an-overview.org][NUMA An Overview]] 一篇关于NUMA的介绍性文章
+     - [[file:numa-an-overview.org][NUMA An Overview]] 一篇关于NUMA的介绍性文章
      - [[file:./memory-barrier.org][Memory Barrier]] 内存屏障
+     - [[file:./memory-barriers-a-hardware-view-for-software-hackers.org][Memory Barriers: a Hardware View for Software Hackers]]
      - [[file:tcmalloc.org][TCMalloc]] Google的开源线程缓存内存分配器，解决多线程下面内存分配效率问题。
    - [[file:sysperf.org][System-Peformance]] 系统性能相关
      - [[file:oprofile.org][OProfile]] OProfile(系统级profiler)的原理和应用。不过说实话没有分析过源代码(或者是自己技术背景不行)终究觉得对这个东西理解不够深入，而且自己也仅仅是使用OProfile功能的子集。
@@ -57,8 +57,8 @@
      - [[file:gdb.org][GDB]] GNU Debugger, mainly on C/C++. 不过现在比较习惯打印日志方式来调试。
      - [[file:lcov.org][lcov]] the LTP(Linux Testing Project) GCOV extension.用来完成C/C++测试覆盖。
      - [[file:build-system.org][BuildSystem]] 在实现Baidu in-house的构建工具Comake2之前，做过构建系统的调研总结出来的。在语法表达上面(非常重要)借鉴了SCons,考虑了其他构建系统提供的功能。
-       - [[file:maven.org][Maven]] 主要针对Java开发的基于工程对象模型(POM, Project Object Model)构建系统，主要记录了一些使用方面的问题和解决办法。
-       - [[file:./sbt.org][SBT]] Simple(or Scala?) Build Tool
+     - [[file:maven.org][Maven]] 主要针对Java开发的基于工程对象模型(POM, Project Object Model)构建系统，主要记录了一些使用方面的问题和解决办法。
+     - [[file:./sbt.org][SBT]] Simple(or Scala?) Build Tool
      - [[file:./vagrant.org][Vagrant]] 用来构件虚拟开发环境的工具，底层可以使用多种虚拟化技术(现在支持非常好的是VirtualBox)
    - Desktop
      - [[file:ubuntu.org][Ubuntu]] 如何更好地使用Ubuntu. [[file:note/struggle-with-ubuntu.org][之前有过痛苦的经历]] 。主要记录自己使用出现的问题。
@@ -77,9 +77,9 @@
      - [[file:./interview-problem.org][Interview Problem]] 面试问题
    - [[file:data-mining.org][Data Mining]] 了解一些数据挖掘方面的知识还是比较有帮助的。其实我们每天都在不知不觉地进行数据挖掘。
    - [[file:recommender-system.org][Recommender System]] 推荐系统
-     - [[file:./deconstructing-recommender-systems.org][Deconstructing Recommender Systems]]
+   - [[file:./deconstructing-recommender-systems.org][Deconstructing Recommender Systems]] 一篇关于推荐系统的介绍性文章
    - [[file:computational-advertising.org][Computational Advertising]] 计算广告学
-     - [[file:ctr.org][CTR]] click through rate.
+   - [[file:ctr.org][CTR]] click through rate.
 
 ** Network Programming
    - [[file:unp.org][UNP]] Unix网络编程(Unix Network Programming),W. Richard Stevens的又一神作。笔记里面只是对于TCP原理有比较详细讨论，这部分笔记也包含了TCP Illustrated v1里面和TCP相关的章节内容。对于编程方面也着重TCP socket使用，毕竟在大部分应用场景下面我们选用TCP模型更多，并且TCP里面有很多非常琐碎的知识。
@@ -110,7 +110,7 @@
      - [[file:./ssd-gc-and-trim.org][固态硬盘技术解析之垃圾回收和TRIM指令]]
      - [[file:./ssd-and-distributed-data-systems.org][SSDs and Distributed Data Systems]] ssd对于设计分布式数据系统的影响
    - [[file:raid.org][RAID]] Redundant Array of Inexpensive Disk. 廉价磁盘冗余阵列
-     - [[file:./the-skinny-on-raid.org][The skinny on RAID]] 一篇关于RAID的介绍性文章
+   - [[file:./the-skinny-on-raid.org][The skinny on RAID]] 一篇关于RAID的介绍性文章
    - [[file:memcached.org][Memcached]] an in-memory key-value store for small chunks of arbitrary data (strings, objects) 可以用来搭建分布式缓存服务，没有持久化存储。
    - [[file:gizzard.org][Gizzard]] a library for creating distributed datastores 可以认为是数据库中间层，完成partition/replication，也做fault-tolerant migration.
    - [[file:./rocksdb.org][RocksDB]] A persistent key-value store for fast storage environments. 基于 [[file:leveldb.org][LevelDB]] 构建，借鉴了 [[file:./hbase.org][HBase]] 的思想。
@@ -147,6 +147,9 @@
      - [[file:./a-word-on-scalability.org][A Word on Scalability]]
      - [[file:./application-resilience-in-a-service-oriented-architecture.org][Application Resilience in a Service-oriented Architecture]]
      - [[file:./building-data-science-teams.org][Building Data Science Teams]]
+     - [[file:./the-hadoop-distributed-file-system.org][The Hadoop Distributed File System]] @2010
+     - [[file:./hdfs-reliability.org][HDFS Reliability]] @2008
+     - [[file:hdfs-scalability-the-limits-to-growth.org][HDFS scalability: the limits to growth]] @2010
    - [[file:streambase.org][StreamBase]] 在实现Baidu in-house的分布式实时流式计算系统之前，调研的商用流式计算系统。没有办法获得源代码只能够从文档中猜测其内部实现以及参考其提供的功能与接口。
    - [[file:storm.org][Storm]] Twitter的分布式实时流式处理系统。这个在实现Baidu in-house的分布式实时流式计算系统的时候也做过调研，但是当时不是很深入。
    - [[file:./samza.org][Samza]] LinkedIn的的分布式流式处理系统，现在是Apache下面的项目。
@@ -238,3 +241,4 @@ Here is my contact info. I think email is the easiest way to get me.
    - github https://github.com/dirtysalt
 
 [[file:note.org][Here]] are my some notes written casually to record my life footprint. I think it will be fun to read them when I became old. My favouritest words comes from the idea of [[http://www.valvesoftware.com/][Valve]] : "Open your mind, Open your eyes" (放眼未来，自由想象), with a [[file:images/valve-logo.jpg][image]] from its game "Half Life"
+

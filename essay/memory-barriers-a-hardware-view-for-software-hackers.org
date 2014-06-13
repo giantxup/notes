@@ -1,0 +1,4 @@
+* memory-barriers-a-hardware-view-for-software-hackers
+#+TITLE: Memory Barriers: a Hardware View for Software Hackers
+
+
