@@ -84,6 +84,8 @@
      - [[file:note/think-like-an-artist.org][像艺术家一样思考-藏在名画里的创意思维(Think Like An Artist)]]
      - [[file:note/confessions-of-an-advertising-man.org][一个广告人的自白(Confessions of an Advertising Man)]]
      - [[file:./note/remote.org][Remote]]
+     - [[file:note/inside-job.org][监守自盗(Inside Job)]]
+     - [[file:note/god-father.org][教父(God Father)]]
    - [[file:note/to-death.org][给离去的亲人们]]
    - [[file:note/american-idiom.org][海哥教你学英语]]
    - [[file:note/music.org][音乐]] | [[file:note/movie.org][电影]] | [[file:note/photo.org][摄影]] | [[file:./note/travel.org][旅行]]
