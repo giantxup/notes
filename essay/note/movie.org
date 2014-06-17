@@ -1,6 +1,6 @@
 * movie
 #+TITLE: 电影
-** Excerpt
+** memo
 -----
 【职场人士必看的十部经典电影】1《当幸福来敲门》；2《肖申克的救赎》；3《跳出我天地》；4《阿甘正传》；5《美丽心灵》；6《穿普拉达的女王》；7《面对巨人》；8《放牛班的春天》；9《天使艾米丽》；10《白色巨塔》。
 
@@ -241,10 +241,12 @@ Every great magic trick consists of three acts. The first act is called The Pled
 ** 林肯(Lincoln)
    - 罗盘可以指明前进的方向，但它不会告诉你路上那里有高山、湖泊、沼泽，如果你一味前行，可能永远到不了目的地。
 
-** 激战
+** 激战(Unbeatable)
    - “原来，这个世界是不等人的。” 
    - “我唯一做到的，都被我自己出卖了。” 
    - “到了这个年纪，我们做一件事，还需要别人理解我们为什么去做吗？”
 
 ** 纸牌屋(House of Cards)
 ** 绝命毒师(Breaking Bad)
+** 华尔街(Wall Street)(1987)
+** 拜金一族(Glengarry Glen Ross)(1992)
