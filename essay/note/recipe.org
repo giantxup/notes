@@ -11,8 +11,7 @@
    - 凤尾菇炒肉
    - 豆腐炸五花肉
    - 蒜香红烧肉
-   - 豆角炒肉
-     - http://www.meishij.net/jiangchangcaipu/doujiaochaorou.html
+   - 豆角炒肉 http://www.meishij.net/jiangchangcaipu/doujiaochaorou.html
 
    - 红烧排骨
    - 啤酒排骨
@@ -22,8 +21,7 @@
    - 可乐鸡翅
    - 虎皮尖椒
    - 糖醋莲藕
-   - 香辣藕丁
-     - http://home.meishichina.com/recipe-88570.html
+   - 香辣藕丁 http://home.meishichina.com/recipe-88570.html
    - 红烧猪蹄 
    - 香椿鸡蛋  
    - 醋溜白菜
@@ -39,6 +37,7 @@
    - 虾皮西葫芦
    - 西红柿鸡蛋
    - 清水煮鲜虾
+   - 炝炒土豆丝
 
 ** 汤水
    - 乌鸡汤
@@ -46,8 +45,8 @@
    - 冬瓜排骨汤
    - 冬瓜鲜贝汤
    - 鲫鱼豆腐汤
-   - 冰糖雪梨汤
-     - http://jingyan.baidu.com/article/9f63fb91cccd9cc8400f0e21.html
+   - 冰糖雪梨汤 http://jingyan.baidu.com/article/9f63fb91cccd9cc8400f0e21.html
+   - 排骨萝卜汤
 
 ** 凉菜
    - 凉拌蕨根粉
