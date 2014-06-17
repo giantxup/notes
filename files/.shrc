@@ -438,14 +438,6 @@ vpn_umeng_dp() {
 }
 
 install_files() {
-    mkdir -p ~/utils/bin
-    for target in uhosts
-    do
-        echo "installing $target..."
-        rm -rf ~/utils/bin/$target
-        ln -s ~/repo/notes/files/$target ~/utils/bin/$target
-    done
-
     for target in .emacs .shrc .zshrc .bashrc .screenrc .tmux.conf
     do
         echo "installing $target..."
