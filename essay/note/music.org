@@ -1,23 +1,4 @@
 * music
 #+TITLE: 音乐
-   - Rolling in The Deep(Adele)
-   - With or Without You(U2)
-   - Hey Jude(Beatles)
-   - Teardrop(Massive Attack)
-   - Eternal Flame http://www.gnu.org/fun/jokes/eternal-flame.html
-   - 怒放的生命(汪峰)
-   - 彩虹桥(赛德克巴莱)
-   - In My Remains(Linkin Park)
-   - Wake Me Up When September Ends(Green Day)
-   - 一生所爱(卢冠廷)
-   - 私奔(郑钧)
-   - 红旗下的蛋(崔健)
-   - 假行僧(崔健)
-   - 飞得更高(汪峰)
-   - 存在(汪峰)
-   - 21 Guns(Green Day)
-   - Lies Greed Misery(Linkin Park)
-   - Castle of Glass(Linkin Park)
-   - Beautiful(Eminem)
-   - 天下没有不散的筵席(郑钧)
 
+todo(dirlt):

@@ -1,4 +1,4 @@
-* american-idiom
+* english-idiom
 #+TITLE: 海哥教你学英语
 
 ** 情感
