@@ -93,7 +93,7 @@
      - [[file:note/lincoln.org][林肯(Lincoln)(2012)]]
      - [[file:note/the-prestige.org][致命魔术(The Prestige)]]
    - [[file:note/to-death.org][给离去的亲人们]]
-   - [[file:note/english-idiom.org][海哥教你学英语]]
+   - [[file:note/idiom.org][海哥教你学英语]]
    - [[file:note/music.org][音乐]] | [[file:note/movie.org][电影]] | [[file:note/photo.org][摄影]] | [[file:./note/travel.org][旅行]]
    - [[file:note/pregnancy.org][怀孕]] | [[file:note/health.org][健康]] | [[file:note/recipe.org][菜谱]] | [[file:note/house.org][住房]]
    - [[file:note/cross-ocean.org][Cross Ocean]] 远渡重洋

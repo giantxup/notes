@@ -1,4 +1,4 @@
-* english-idiom
+* idiom
 #+TITLE: 海哥教你学英语
 
 ** 情感
@@ -15,12 +15,18 @@
    - yes and no #
    - sit on my fingers/hands #
    - do the trick #
+   - scrape up #
 
 ** 缩写
    - IIRC # If I Remember/Recall Correctly
    - AFAIR(K) # As Far As I Remember/Recall/Know
    - smth # something
    - FUBR # F***ed Up Beyond Recognition
+   - GBP # Great Britain Pound 英镑
+   - PA # parallel apply
+   - CC # configuration change
+   - RBR # row-based repl
+   - SBR # stmt-based repl
 
 ** 动词
    - Accelerated

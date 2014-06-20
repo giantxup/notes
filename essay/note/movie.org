@@ -1,4 +1,22 @@
 * movie
 #+TITLE: 电影
 
-todo(dirlt):
+- 颠倒乾坤(Trading Places)(1983)
+- 纸牌屋(House of Cards)
+- 绝命毒师(Breaking Bad)
+- 华尔街(Wall Street)(1987)
+- 拜金一族(Glengarry Glen Ross)(1992)
+- 权利的游戏(Game of Thrones)
+- 黑暗骑士崛起(The Dark Knight Rises)(2012)
+- 黑暗骑士(The Dark Knight)(2008)
+- 蝙蝠侠：侠影之谜(Batman Begins)(2005)
+- 激战(Unbeatable)
+- 当幸福来敲门(The Pursuit of Happiness)
+- 肖申克的救赎(The Shawshank Redemption)
+- 阿甘正传(Forrest Gump)
+- 美丽心灵(A Beautiful Mind)
+- 穿普拉达的女王(The Devil Wears Prada)
+- 放牛班的春天(The Chorus)
+- 天堂电影院(Nuovo cinema Paradiso)
+- V字仇杀队(V for Vendetta)
+- 勇敢的心(Brave Heart)
